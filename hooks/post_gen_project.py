@@ -10,17 +10,23 @@ BRANCH = 'restructure/autora'
 
 
 def clean_up():
-    venv_dir = 'temp/venv'
+    venv_dir = os.path.join(os.getcwd(), 'temp/venv')
     to_remove = os.path.join(os.getcwd(), 'temp')
 
     # Deactivate the virtual environment
     if sys.platform.startswith('win'):
-        subprocess.call(['cmd.exe', '/c', 'deactivate'])
+        deactivate_command = os.path.join(venv_dir, 'Scripts', 'deactivate')
     else:
-        subprocess.call(['deactivate'])
+        deactivate_command = os.path.join(venv_dir, 'bin', 'deactivate')
+
+    try:
+        subprocess.call(['source', deactivate_command], shell=True)
+    except Exception as e:
+        print(f"Error: {str(e)}")
 
     # Delete the virtual environment directory
     shutil.rmtree(to_remove)
+    
 
 
 def create_python_environment():
