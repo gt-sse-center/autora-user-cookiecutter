@@ -4,8 +4,23 @@ import sys
 import requests
 from tomlkit import parse
 import inquirer
+import shutil
 
 BRANCH = 'restructure/autora'
+
+
+def clean_up():
+    venv_dir = 'temp/venv'
+    to_remove = os.path.join(os.getcwd(), 'temp')
+
+    # Deactivate the virtual environment
+    if sys.platform.startswith('win'):
+        subprocess.call(['cmd.exe', '/c', 'deactivate'])
+    else:
+        subprocess.call(['deactivate'])
+
+    # Delete the virtual environment directory
+    shutil.rmtree(to_remove)
 
 
 def create_python_environment():
@@ -42,9 +57,6 @@ def create_python_environment():
     for deps in all_deps_clean:
         type = deps.replace('all-', '')
 
-        def article():
-            return 'an' if type[0] in 'aeiou' else 'a'
-
         lst = doc["project"]["optional-dependencies"][deps]
         if lst != []:
             questions = [
@@ -73,8 +85,8 @@ def create_python_environment():
     else:
         subprocess.run([pip_exe, "install", "-r", requirements_file])
 
-
     # Print the content of the file
+    clean_up()
 
     # Print a message showing how to activate the virtual environment
     return print_message
