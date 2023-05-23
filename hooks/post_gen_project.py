@@ -39,15 +39,19 @@ def create_python_environment(version, is_prerelease, project_directory, require
         pip_exe = os.path.join(venv_dir, 'Scripts', 'pip')
         activate_command = os.path.join(venv_dir, 'Scripts', 'activate')
         print_message = f"\n\nProject setup is complete. To activate the virtual environment, run:\n\n{activate_command}\n\nOr if you're using PowerShell:\n\n. {activate_command}"
+        if is_prerelease == 'yes':
+            subprocess.run([pip_exe, "install", "--pre", "-r", requirements_file], shell=True)
+        else:
+            subprocess.run([pip_exe, "install", "-r", requirements_file], shell=True)
     else:
         subprocess.run([f"python{version}", "-m", "venv", venv_dir], capture_output=True)
         pip_exe = os.path.join(venv_dir, 'bin', 'pip')
         activate_command = f"source {os.path.join(venv_dir, 'bin', 'activate')}"
         print_message = f"\n\nProject setup is complete. To activate the virtual environment, run:\n\n{activate_command}"
-    if is_prerelease == 'yes':
-        subprocess.run([pip_exe, "install", "--pre", "-r", requirements_file])
-    else:
-        subprocess.run([pip_exe, "install", "-r", requirements_file])
+        if is_prerelease == 'yes':
+            subprocess.run([pip_exe, "install", "--pre", "-r", requirements_file])
+        else:
+            subprocess.run([pip_exe, "install", "-r", requirements_file])
 
     return print_message
 
