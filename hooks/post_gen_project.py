@@ -6,10 +6,7 @@ from tomlkit import parse
 import inquirer
 import shutil
 
-BRANCH = 'restructure/autora'
-PYTHON_VERSION = '{{ cookiecutter.python_version }}'
-PROJECT_DIR = os.path.join(os.path.realpath(os.path.curdir), 'researcher_hub')
-REQUIREMENTS_FILE = os.path.join(PROJECT_DIR, 'requirements.txt')
+
 
 
 def clean_up():
@@ -31,13 +28,13 @@ def clean_up():
     shutil.rmtree(to_remove)
 
 
-def create_python_environment(is_prerelease):
+def create_python_environment(version, is_prerelease, project_directory, requirements_file):
     # Get the project directory
 
     # Create a new virtual environment in the project directory
-    venv_dir = os.path.join(PROJECT_DIR, f'venv{PYTHON_VERSION}')
+    venv_dir = os.path.join(project_directory, f'venv{version}')
 
-    subprocess.run([f"python{PYTHON_VERSION}", "-m", "venv", venv_dir], capture_output=True)
+    subprocess.run([f"python{version}", "-m", "venv", venv_dir], capture_output=True)
 
     # Install packages using pip and the requirements.txt file
     # Determine paths and commands based on the operating system
@@ -50,15 +47,16 @@ def create_python_environment(is_prerelease):
         activate_command = f"source {os.path.join(venv_dir, 'bin', 'activate')}"
         print_message = f"\n\nProject setup is complete. To activate the virtual environment, run:\n\n{activate_command}"
     if is_prerelease == 'yes':
-        subprocess.run([pip_exe, "install", "--pre", "-r", REQUIREMENTS_FILE])
+        subprocess.run([pip_exe, "install", "--pre", "-r", requirements_file])
     else:
-        subprocess.run([pip_exe, "install", "-r", REQUIREMENTS_FILE])
+        subprocess.run([pip_exe, "install", "-r", requirements_file])
 
     return print_message
 
 
-def create_requirement():
-    response = requests.get(f'https://raw.githubusercontent.com/AutoResearch/autora/{BRANCH}/pyproject.toml')
+def create_requirement(source_branch, requirements_file):
+
+    response = requests.get(f'https://raw.githubusercontent.com/AutoResearch/autora/{source_branch}/pyproject.toml')
     doc = parse(response.text)
     # Extract the list of dependencies from the 'all' section
     all_deps = doc["project"]["optional-dependencies"]["all"]
@@ -84,7 +82,7 @@ def create_requirement():
             additional_deps += inquirer.prompt(questions)['choice']
     # Install packages using pip and the requirements.txt file
 
-    with open(REQUIREMENTS_FILE, 'a') as f:
+    with open(requirements_file, 'a') as f:
         for a in additional_deps:
             f.write(f'\n{a}')
     questions = [
@@ -101,9 +99,13 @@ def create_requirement():
 
 
 def main():
-    is_prerelease = create_requirement()
+    source_branch = 'restructure/autora'
+    python_version = '{{ cookiecutter.python_version }}'
+    project_directory = os.path.join(os.path.realpath(os.path.curdir), 'researcher_hub')
+    requirements_file = os.path.join(project_directory, 'requirements.txt')
+    is_prerelease = create_requirement(source_branch, requirements_file)
     try:
-        msg = create_requirement(is_prerelease)
+        msg = create_requirement(python_version, is_prerelease, project_directory, requirements_file)
     except:
         msg = 'It is recommended to use a virtual environment in the research_hub directory.'
     clean_up()
