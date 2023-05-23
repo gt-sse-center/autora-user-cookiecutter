@@ -1,5 +1,4 @@
 import os
-import shutil
 import subprocess
 import sys
 import venv
@@ -32,9 +31,8 @@ def setup():
         subprocess.call(source_cmd, shell=True)
 
     # Install the dependencies using pip
-    subprocess.check_call([sys.executable, "-m", "pip", "install", *missing_packages])
+    subprocess.check_call([python_executable, "-m", "pip", "install", *missing_packages])
 
-    # Run the script that requires the dependencies
 
 
 # Call the function to run the post-gen script

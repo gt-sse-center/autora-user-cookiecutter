@@ -7,6 +7,9 @@ import inquirer
 import shutil
 
 BRANCH = 'restructure/autora'
+PYTHON_VERSION = '{{ cookiecutter.python_version }}'
+PROJECT_DIR = os.path.join(os.path.realpath(os.path.curdir), 'researcher_hub')
+REQUIREMENTS_FILE = os.path.join(PROJECT_DIR, 'requirements.txt')
 
 
 def clean_up():
@@ -26,17 +29,15 @@ def clean_up():
 
     # Delete the virtual environment directory
     shutil.rmtree(to_remove)
-    
 
 
-def create_python_environment():
-    python_version = '{{ cookiecutter.python_version }}'
+def create_python_environment(is_prerelease):
     # Get the project directory
-    project_dir = os.path.join(os.path.realpath(os.path.curdir), 'researcher_environment')
-    # Create a new virtual environment in the project directory
-    venv_dir = os.path.join(project_dir, f'venv{python_version}')
 
-    subprocess.run([f"python{python_version}", "-m", "venv", venv_dir], capture_output=True)
+    # Create a new virtual environment in the project directory
+    venv_dir = os.path.join(PROJECT_DIR, f'venv{PYTHON_VERSION}')
+
+    subprocess.run([f"python{PYTHON_VERSION}", "-m", "venv", venv_dir], capture_output=True)
 
     # Install packages using pip and the requirements.txt file
     # Determine paths and commands based on the operating system
@@ -48,7 +49,15 @@ def create_python_environment():
         pip_exe = os.path.join(venv_dir, 'bin', 'pip')
         activate_command = f"source {os.path.join(venv_dir, 'bin', 'activate')}"
         print_message = f"\n\nProject setup is complete. To activate the virtual environment, run:\n\n{activate_command}"
+    if is_prerelease == 'yes':
+        subprocess.run([pip_exe, "install", "--pre", "-r", REQUIREMENTS_FILE])
+    else:
+        subprocess.run([pip_exe, "install", "-r", REQUIREMENTS_FILE])
 
+    return print_message
+
+
+def create_requirement():
     response = requests.get(f'https://raw.githubusercontent.com/AutoResearch/autora/{BRANCH}/pyproject.toml')
     doc = parse(response.text)
     # Extract the list of dependencies from the 'all' section
@@ -74,8 +83,8 @@ def create_python_environment():
 
             additional_deps += inquirer.prompt(questions)['choice']
     # Install packages using pip and the requirements.txt file
-    requirements_file = os.path.join(project_dir, 'requirements.txt')
-    with open(requirements_file, 'a') as f:
+
+    with open(REQUIREMENTS_FILE, 'a') as f:
         for a in additional_deps:
             f.write(f'\n{a}')
     questions = [
@@ -86,17 +95,19 @@ def create_python_environment():
     ]
 
     answers = inquirer.prompt(questions)
-    if answers['prerelease'] == 'yes':
-        subprocess.run([pip_exe, "install", "--pre", "-r", requirements_file])
-    else:
-        subprocess.run([pip_exe, "install", "-r", requirements_file])
-
-    # Print the content of the file
-    clean_up()
 
     # Print a message showing how to activate the virtual environment
-    return print_message
+    return answers['prerelease'] == 'yes'
 
 
-msg_environment = create_python_environment()
-print(msg_environment)
+def main():
+    is_prerelease = create_requirement()
+    try:
+        msg = create_requirement(is_prerelease)
+    except:
+        msg = 'It is recommended to use a virtual environment in the research_hub directory.'
+    clean_up()
+    print(msg)
+
+
+main()

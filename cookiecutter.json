@@ -2,5 +2,5 @@
     "project_name": "Enter your project name",
     "python_version": ["3.8", "3.9", "3.10", "3.11",
         "I want to install the virtual environment and dependencies manually"],
-    "__project_slug": "{{ cookiecutter.project_name.lower().replace(' ','_').replace('-','_') }}"
+    "__project_slug": "{{ cookiecutter.project_name.lower().replace(' ','_').replace('-','_') }}",
 }
