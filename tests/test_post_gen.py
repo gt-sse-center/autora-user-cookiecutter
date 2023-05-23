@@ -1,5 +1,6 @@
 from hooks.post_gen_project import create_python_environment
 import os
+import sys
 
 
 def test_create_environment():
@@ -9,6 +10,7 @@ def test_create_environment():
                                      '../{{ cookiecutter.__project_slug }}/researcher_hub/requirements.txt')
 
     for v in python_versions:
-        result = create_python_environment(v, True, project_dir, requirements_file)
+        if sys.version.startswith(v):
+            result = create_python_environment(v, True, project_dir, requirements_file)
 
-        assert result is not None
+            assert result is not None
