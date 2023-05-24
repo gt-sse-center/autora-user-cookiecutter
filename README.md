@@ -13,7 +13,6 @@
 # Create a virtual environment:
 
 
-
 Creates a project with
 (1) AutoRa Research Environment
 (2) AutoRa Test Subject Environment
