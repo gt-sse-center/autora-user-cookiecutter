@@ -10,7 +10,7 @@ missing_packages = [pkg for pkg in required_packages if pkg not in sys.modules]
 
 def setup():
     # Define the name and location of the virtual environment
-    venv_dir = 'temp/venv'
+    venv_dir = 'temp/venvTmp'
     venv_path = os.path.join(os.getcwd(), venv_dir)
 
     # Create the virtual environment
@@ -27,13 +27,12 @@ def setup():
     if sys.platform.startswith('win'):
         subprocess.call(['cmd.exe', '/c', activate_script])
     else:
-        source_cmd = f'source {activate_script}'
-        subprocess.call(source_cmd, shell=True)
+        subprocess.call(['source', activate_script], shell=True)
 
     # Install the dependencies using pip
     subprocess.check_call([python_executable, "-m", "pip", "install", *missing_packages])
 
 
-
-# Call the function to run the post-gen script
-setup()
+if __name__ == '__main__':
+    # Call the function to run the post-gen script
+    setup()
