@@ -7,7 +7,7 @@ Basic Workflow
 """
 
 from autora.variable import VariableCollection, Variable
-from autora.runner.firebase_prolific import firebase_runner
+from autora.experiment_runner.firebase_prolific import firebase_runner
 from autora.experimentalist.pipeline import make_pipeline
 import numpy as np
 from sklearn.linear_model import LinearRegression
