@@ -16,10 +16,10 @@ from autora.workflow.cycle import Cycle
 from sweetbean.sequence import Block, Experiment
 from sweetbean.stimulus import TextStimulus
 
-# *** Set up meta data *** #
+# *** Set up variables *** #
 # independent variable is coherence (0 - 1)
 # dependent variable is accuracy (0 - 1)
-metadata = VariableCollection(
+variables = VariableCollection(
     independent_variables=[Variable(name="x", allowed_values=[i for i in range(4, 33)])],
     dependent_variables=[Variable(name="y", value_range=(-1, 1))])
 
@@ -82,11 +82,11 @@ experiment_runner = firebase_runner(
 
 # *** Set up the cycle *** #
 cycle = Cycle(
-    metadata=metadata,
+    variables=variables,
     theorist=theorist,
     experimentalist=experimentalist,
     experiment_runner=experiment_runner,
-    monitor=lambda state: print(f"Generated {len(state.theories)} theories"))
+    monitor=lambda state: print(f"Generated {len(state.models)} models"))
 
 # run the cycle (we will be running 3 cycles with 3 conditions each)
 cycle.run(num_cycles=3)
@@ -100,5 +100,5 @@ def report_linear_fit(m: LinearRegression, precision=4):
     return s
 
 
-print(report_linear_fit(cycle.data.theories[0]))
-print(report_linear_fit(cycle.data.theories[-1]))
+print(report_linear_fit(cycle.data.models[0]))
+print(report_linear_fit(cycle.data.models[-1]))
