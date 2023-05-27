@@ -30,3 +30,7 @@ Install the requirements:
 ```shell
 pip install -r requirements.txt
 ```
+
+### Write your code
+
+The autora_workflow.py file shows a basic example on how to run a closed loop autora experiment. Navigate [here](https://autoresearch.github.io/autora/) for more advanced options.

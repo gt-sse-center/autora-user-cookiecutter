@@ -74,7 +74,7 @@ firebase init
 
 In your command line a dialog should appear.
 
-- Choose (my selecting and pressing the space bar):
+- Choose (by selecting and pressing space bar):
     - Firestore: Configure security rules and indexes files for Firestore
     - Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
     - Press `Enter`
@@ -86,14 +86,27 @@ In your command line a dialog should appear.
 - Configure as single page app, type `y` and press `Enter`
 - No automatic builds and deploys with GitHub, type `n` and press `Enter`
 
-### write your own code
+### Set the credentials
+In the testing_zone folder there is a .env file, where you need to replace the default values with credentials from your Firebase Project.
+You find the credentials in the Firebase Project under Project-Overview -> Project Settings.
+
+```javascript
+const firebaseConfig = {
+  apiKey: "apiKey",
+  authDomain: "authDomain",
+  projectId: "projectId",
+  storageBucket: "storageBucket",
+  messagingSenderId: "messagingSenderId",
+  appId: "appId",
+  measurementId: "measurementId"
+};
+```
+
+### Write your own code
 
 Write your own code in the src/design/main.js folder.
-Here is a list of examples:
-[Stroop Firebase main funciton](examples/stroop/test_subject_environment)
-[Super Experiment Firebase main funciton](examples/super_experiment/test_subject_environment)
 
-### test your experiment
+### Test your experiment
 
 you can test the experiment locally via
 
@@ -127,4 +140,4 @@ To deploy the experiment, run
 firebase deploy
 ```
 
-This will deploy the experiment to firebase and you will get a link where participants can access it.
+This will deploy the experiment to firebase, and you will get a link where participants can access it.

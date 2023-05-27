@@ -83,7 +83,7 @@ def create_autora_example_project():
     shutil.move(f'example_mains/{example_file}.js', 'testing_zone/src/design/main.js')
     shutil.move(f'example_workflows/{example_file}.py', 'researcher_hub/autora_workflow.py')
     shutil.move('readmes/README_AUTORA.md', 'researcher_hub/README.md')
-    shutil.move('readmes/README_FIREBASE.md', 'testing_zone/README.md')
+    shutil.move('readmes/README_FIREBASE_{example_file}.md', 'testing_zone/README.md')
 
     # Remove tmps
     to_remove = os.path.join(os.getcwd(), 'example_workflows')
