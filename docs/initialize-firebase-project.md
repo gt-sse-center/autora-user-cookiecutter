@@ -1,16 +1,16 @@
 ## Create a firebase project in the browser
 ### Google account
-You'll need a google account to use firebase. You can create one here: 
+You'll need a Google account to use firebase. You can create one here: 
 https://www.google.com/account/about/
 
 ### Firebase Project
-While logged in into your google account head over to:
+While logged in into your Google account head over to:
 https://firebase.google.com/
 
 - Click on `Get started`
 - Click on the plus sign with `add project`
 - name your project and click on `continue`
-- For now, we don't use google analytics (you can leave it enabled if you want to use it in the future)
+- For now, we don't use Google Analytics (you can leave it enabled if you want to use it in the future)
 - Click 'Create project'
 
 ### Adding a webapp to your project

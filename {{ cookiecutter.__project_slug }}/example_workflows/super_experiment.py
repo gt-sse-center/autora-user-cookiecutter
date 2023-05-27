@@ -44,7 +44,7 @@ experimentalist = make_pipeline([uniform_random_sampler])
 #   -> project -> project settings -> service accounts -> generate new private key
 
 firebase_credentials = {
-    "type": "tyoe",
+    "type": "type",
     "project_id": "project_id",
     "private_key_id": "private_key_id",
     "private_key": "private_key",
