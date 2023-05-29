@@ -16,22 +16,23 @@ from autora.workflow.cycle import Cycle
 # *** Set up variables *** #
 # independent variable is coherence (0 - 1)
 # dependent variable is accuracy (0 - 1)
-metadata = VariableCollection(
-    independent_variables=[Variable(name="x", allowed_values=[i for i in range(4, 33)])],
+variables = VariableCollection(
+    independent_variables=[Variable(name="x", allowed_values=range(1))],
     dependent_variables=[Variable(name="y", value_range=(-1, 1))])
 
 # *** Set up the theorist *** #
-# The ground truth might actually not be a linear dependency,
-# but might look somehow like this f(x) = 1 - e ^ (-x).
-# Feel free to implement your own theorist here
+# Here we use a linear regression as theorist, but you can use other theorists included in autora (for a list: https://autoresearch.github.io/autora/)
+# Or you can set up your own theorist
 theorist = LinearRegression()
 
 # *** Set up the experimentalist *** #
-# Also feel free to set up a more elaborate experimentalist here. This is just a random sampler that samples between 4 and 32 training size
+# Here we use a random sampler as experimentalist, but you can use other experimentalists included in autora (for a list:  https://autoresearch.github.io/autora/)
+# Or you can set up your own experimentalist
 uniform_random_rng = np.random.default_rng(seed=180)
 
+
 def uniform_random_sampler():
-    return uniform_random_rng.integers(low=4, high=33, size=3)
+    return uniform_random_rng.uniform(low=0, high=1, size=3)
 
 
 experimentalist = make_pipeline([uniform_random_sampler])
@@ -62,7 +63,7 @@ experiment_runner = firebase_runner(
 
 # *** Set up the cycle *** #
 cycle = Cycle(
-    variables=metadata,
+    variables=variables,
     theorist=theorist,
     experimentalist=experimentalist,
     experiment_runner=experiment_runner,

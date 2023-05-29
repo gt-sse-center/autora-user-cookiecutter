@@ -116,8 +116,13 @@ In the example experiment, we also use the html-keyboard-response plugin. Instal
 npm install @jspsych/plugin-html-keyboard-response
 ```
 
-A list of JsPsych pacakges can be found here: [JsPsych GitHub](https://github.com/jspsych/jsPsych)
+Als, we use the rdk plugin. Install via:
 
+```shell
+npm install @jspsych-contrib/plugin-rdk
+```
+
+A list of JsPsych packages can be found here: [JsPsych GitHub](https://github.com/jspsych/jsPsych)
 
 ### Write your own code
 

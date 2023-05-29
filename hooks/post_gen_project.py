@@ -68,13 +68,15 @@ def create_autora_example_project():
 
     questions = [inquirer.List('project_type',
                                message='What type of project do you want to create?',
-                               choices=['Blank', 'JsPsych', 'SuperExperiment', 'SweetBean']
+                               choices=['Blank', 'JsPsych - Stroop', 'JsPsych - RDK', 'SuperExperiment', 'SweetBean']
                                )]
 
     answers = inquirer.prompt(questions)
 
-    if answers['project_type'] == 'JsPsych':
-        example_file = 'js_psych'
+    if answers['project_type'] == 'JsPsych - Stroop':
+        example_file = 'js_psych_stroop'
+    if answers['project_type'] == 'JsPsych - RDK':
+        example_file = 'js_psych_rdk'
     if answers['project_type'] == 'SuperExperiment':
         example_file = 'super_experiment'
     if answers['project_type'] == 'SweetBean':
