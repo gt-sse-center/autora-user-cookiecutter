@@ -10,13 +10,13 @@
 
 ## Usage
 
-# Create a virtual environment:
-
-
 Creates a project with
-(1) AutoRa Research Environment
-(2) AutoRa Test Subject Environment
 
-### AutoRa Research Environment
+1.  AutoRa Research Hub
+autora workflow that runs on a server
+
+2.  AutoRa Testing Zone (optional)
+JavaScript website that is presented to the participant
+
 
 
