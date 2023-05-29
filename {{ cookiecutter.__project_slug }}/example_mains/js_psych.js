@@ -10,7 +10,7 @@ import htmlKeyboardResponse from '@jspsych/plugin-html-keyboard-response';
 
 
 /**
- * This is the main function where you program your experiment. For example you can install jsPsych via node and
+ * This is the main function where you program your experiment. Install jsPsych via node and
  * use functions from there
  * @param id this is a number between 0 and number of participants. You can use it for example to counterbalance between subjects
  * @param condition this is a condition (4-32. Here we want to find out how the training length impacts the accuracy in a testing phase)
