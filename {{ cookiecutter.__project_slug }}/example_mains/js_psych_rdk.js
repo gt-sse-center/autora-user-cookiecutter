@@ -24,7 +24,7 @@ const main = async (id, condition) => {
     const SOA_DURATION = 400
     const STIMULUS_DURATION = 2000
     const FEEDBACK_DURATION = 800
-    const NUMBER_OF_TRIALS = 2
+    const NUMBER_OF_TRIALS = 10
 
     // key to response mapping 0 degree -> f, 180 degree -> j
     const responseToKeyMapping = {
