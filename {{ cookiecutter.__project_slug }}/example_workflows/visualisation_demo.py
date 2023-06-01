@@ -44,17 +44,7 @@ CYCLES = 5
 # (https://console.firebase.google.com/)
 #   -> project -> project settings -> service accounts -> generate new private key
 FIREBASE_CREDENTIALS = {
-    "type": "service_account",
-    "project_id": "super-experiment-4ea1f",
-    "private_key_id": "81ffadae31e49cef93f700e903ee587cb263325b",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDQomS9N79WPG+S\nYc+lhY0SqZrnqYNjQHQy6pr+FrpYHSnthTd+++ttq3DuChpzrL9cQZnCVdpYv7AM\naW4KHoJXb/KRIVNG5DSfZcht5+xJz3R6b1bSHapbZXXpCJ+Jz4NGSy2r/+doZOq1\nYBE4bwbnqxdFJ6Xz+E7feJe+g7305BYamlNlBcmnGuLWq02MTj5Th7e+AMt66qOE\ne+45JbqqPPr5VXorrClOiBDbixTVCPRbUTyQ1LEf+8N8WgeRVDqCJNbvInr0nbmb\nNtTbLkvJZi+NdVfF+AV4Kr/c9wKzffsUcTMP/i0s0rU7BBIV6T74zw9ygbiYxK9d\nXuPAKU4dAgMBAAECggEAHfKVicipBSinLkiufPiy45EnbGX7d2F+3HkrFtpt1KyZ\nAmBrMyXXqTYg/3ZBTkXncQd0mf3nWfJoA5wVoMu403K9C6KQON6UhCXg04/lLcIi\n2tlFCeOausRRXMoxVl+MXSh47ZXN4oEL5M2doy9iuxnmvPVAP8kujyrZA06XU4Gw\nmza3zjcw3ChJ0zdLgdH1AoKJ1W3ekkH+JgDmlENnKz7/l9rIWHRqqEPhzXOPDA1p\nQe2hwJpYNSiQXzmr4uolO7JYVsuYwS2KwfhLeMxFaVula8Yfo9GDJXEjuKUXKR6r\nnCe2AxIuLMFUzTj42+LbNU+L2z+waJiCDAM9OGagSQKBgQDvtf5fVjWPMt58m4Nv\nM/GnqvQvtrZ+ZP9u1fucQaFDE6Vdfl+rI3vyWR2JMuVjSqXqju1rxCgcjifnNjj2\n+uvpTkLGKtk1IQj+n6zN8noupwIFaG9WYoSWXQ5IbLcQmg8QI8aNMrexZ7BkbBvZ\nfI7oJpK+jl/Nl6EwuTfK5WJxCQKBgQDez8rm8yUFq/GeS/FjhBLYg9ZdM+vBkw5m\n0KOBISIs6Vztgtd86P67Q3nH7wmesUhCTcp+C4bgAQ9zC/sBGdh9/+kqyRBZNxIV\nEHNy057VlLY0UxEVXwnLPKg4t990GOFH+QFmCQdXrjT2PCPBFUn0TjDhx22kDWFH\nLjJe3Pi9dQJ/Pcytx+Zx6Hk04us093Zs1s08JxDz+6IOOITyWVaSPLjT6UarY3PC\ngLh45OY6PV8BZ3dxvlbUAIilwPY5uXL3Xy7OCEkDtq7NoteHtZDN7zkfTEWgbqT3\nicxz4jgk+iK9v2t5xO1Obm5NC5bTlz6FmVRYgMgz6s0swWL+/1AkEQKBgQCfB0CS\nxkhOXAMAMMQBe2rYDoEZ1M0YRJWq3I9WwwdZdtZUz2ZuSP5HOknZYctD8NTaPhuh\nCykhCKC2RH7Ksl/KzrTlTMzWYHAPiMZd1p0vZA0IG6G91y9uV8TZdqOOgZOJgzh0\nU01iT3yNoy8ByOgX7xcEjwq6ZLJh058wBhejYQKBgCIYDiTC4hCM0c5lb0mCFvUJ\nlSycmyVcrwkOhLC3VzqKnwiOHt9JzV9t8I2aHnPwfaW2wkWX7HIecF9RbyBnEAfs\nCi1QxLgrBKAN9GRfMCM/BzZ0fSXovm0GSq9UC7/49QOoFhebNoQqf5KzMqa97tzS\nDnW0pc5wfltqBsCAGOdm\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-mddrv@super-experiment-4ea1f.iam.gserviceaccount.com",
-    "client_id": "104084508309239025783",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mddrv%40super-experiment-4ea1f.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
+    
 }
 
 # define variables
