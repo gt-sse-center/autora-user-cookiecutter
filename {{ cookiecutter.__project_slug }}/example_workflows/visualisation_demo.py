@@ -26,6 +26,7 @@ import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from PIL import Image
 
 from autora.experimentalist.sampler import dissimilarity
 from autora.theorist.bms import BMSRegressor
@@ -36,25 +37,15 @@ from autora.variable import Variable, VariableCollection
 # Samples before the dissimilarity sampler
 RANDOM_SAMPLES = 50
 # blocks per participants
-BLOCKS = 3
-PARTICIPANTS_PER_CYCLE = 4
+BLOCKS = 1
+PARTICIPANTS_PER_CYCLE = 1
 CYCLES = 5
 
 # Credentials for firebase
 # (https://console.firebase.google.com/)
 #   -> project -> project settings -> service accounts -> generate new private key
 FIREBASE_CREDENTIALS = {
-    "type": "service_account",
-    "project_id": "super-experiment-4ea1f",
-    "private_key_id": "81ffadae31e49cef93f700e903ee587cb263325b",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDQomS9N79WPG+S\nYc+lhY0SqZrnqYNjQHQy6pr+FrpYHSnthTd+++ttq3DuChpzrL9cQZnCVdpYv7AM\naW4KHoJXb/KRIVNG5DSfZcht5+xJz3R6b1bSHapbZXXpCJ+Jz4NGSy2r/+doZOq1\nYBE4bwbnqxdFJ6Xz+E7feJe+g7305BYamlNlBcmnGuLWq02MTj5Th7e+AMt66qOE\ne+45JbqqPPr5VXorrClOiBDbixTVCPRbUTyQ1LEf+8N8WgeRVDqCJNbvInr0nbmb\nNtTbLkvJZi+NdVfF+AV4Kr/c9wKzffsUcTMP/i0s0rU7BBIV6T74zw9ygbiYxK9d\nXuPAKU4dAgMBAAECggEAHfKVicipBSinLkiufPiy45EnbGX7d2F+3HkrFtpt1KyZ\nAmBrMyXXqTYg/3ZBTkXncQd0mf3nWfJoA5wVoMu403K9C6KQON6UhCXg04/lLcIi\n2tlFCeOausRRXMoxVl+MXSh47ZXN4oEL5M2doy9iuxnmvPVAP8kujyrZA06XU4Gw\nmza3zjcw3ChJ0zdLgdH1AoKJ1W3ekkH+JgDmlENnKz7/l9rIWHRqqEPhzXOPDA1p\nQe2hwJpYNSiQXzmr4uolO7JYVsuYwS2KwfhLeMxFaVula8Yfo9GDJXEjuKUXKR6r\nnCe2AxIuLMFUzTj42+LbNU+L2z+waJiCDAM9OGagSQKBgQDvtf5fVjWPMt58m4Nv\nM/GnqvQvtrZ+ZP9u1fucQaFDE6Vdfl+rI3vyWR2JMuVjSqXqju1rxCgcjifnNjj2\n+uvpTkLGKtk1IQj+n6zN8noupwIFaG9WYoSWXQ5IbLcQmg8QI8aNMrexZ7BkbBvZ\nfI7oJpK+jl/Nl6EwuTfK5WJxCQKBgQDez8rm8yUFq/GeS/FjhBLYg9ZdM+vBkw5m\n0KOBISIs6Vztgtd86P67Q3nH7wmesUhCTcp+C4bgAQ9zC/sBGdh9/+kqyRBZNxIV\nEHNy057VlLY0UxEVXwnLPKg4t990GOFH+QFmCQdXrjT2PCPBFUn0TjDhx22kDWFH\nLjJe3Pi9dQJ/Pcytx+Zx6Hk04us093Zs1s08JxDz+6IOOITyWVaSPLjT6UarY3PC\ngLh45OY6PV8BZ3dxvlbUAIilwPY5uXL3Xy7OCEkDtq7NoteHtZDN7zkfTEWgbqT3\nicxz4jgk+iK9v2t5xO1Obm5NC5bTlz6FmVRYgMgz6s0swWL+/1AkEQKBgQCfB0CS\nxkhOXAMAMMQBe2rYDoEZ1M0YRJWq3I9WwwdZdtZUz2ZuSP5HOknZYctD8NTaPhuh\nCykhCKC2RH7Ksl/KzrTlTMzWYHAPiMZd1p0vZA0IG6G91y9uV8TZdqOOgZOJgzh0\nU01iT3yNoy8ByOgX7xcEjwq6ZLJh058wBhejYQKBgCIYDiTC4hCM0c5lb0mCFvUJ\nlSycmyVcrwkOhLC3VzqKnwiOHt9JzV9t8I2aHnPwfaW2wkWX7HIecF9RbyBnEAfs\nCi1QxLgrBKAN9GRfMCM/BzZ0fSXovm0GSq9UC7/49QOoFhebNoQqf5KzMqa97tzS\nDnW0pc5wfltqBsCAGOdm\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-mddrv@super-experiment-4ea1f.iam.gserviceaccount.com",
-    "client_id": "104084508309239025783",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mddrv%40super-experiment-4ea1f.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
+
 }
 
 # define variables
@@ -81,25 +72,28 @@ def reformat(sequence):
 
 # plot data to a tkinter window
 def plot(x_points=None, y_points=None, vertical_lines=None, x_graph=None, y_graph=None, ax=None, text=None, title='',
-         axis='on'):
+         axis='on', status_ax=None, status_msg=''):
     ax.clear()
     ax.axis(axis)
     if text is None:
         if x_points is not None and y_points is not None:
-            ax.plot(x_points, y_points, 'bo')
-
+            ax.plot(x_points, y_points, 'bo', color='black')
         if vertical_lines is not None:
             for line_x in vertical_lines:
-                ax.axvline(x=line_x, color='red', linestyle='--')
-
+                ax.axvline(x=line_x, color='green', linestyle='-')
         if x_graph is not None and y_graph is not None:
-            ax.plot(x_graph, y_graph, "-")
+            ax.plot(x_graph, y_graph, color="blue", linestyle="-")
     else:
         ax.text(0.5, 0.5, text, ha='center', va='center', fontsize=12)
     ax.set_title(title)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.set_aspect('equal')
+    if status_ax is not None:
+        status_ax.clear()
+        status_ax.axis('off')
+        status_ax.text(0.5, 0.5, status_msg, ha='center', va='center', fontsize=12)
+        status_ax.set_aspect('equal')
 
 
 # get n samples of an 3-tuple
@@ -164,7 +158,7 @@ def get_accuracy_from_observations(observations, conditions):
         rok_trials = [trial for trial in trials if trial['trial_type'] == 'rok']
         trials_coherence = [trial for trial in rok_trials if (
                 (trial['coherence_movement'] < coherence * 100 + .1) and (
-                    trial['coherence_movement'] > coherence * 100 - .1))]
+                trial['coherence_movement'] > coherence * 100 - .1))]
         rok_trials_correct = [trial for trial in trials_coherence if trial['correct']]
         if len(trials_coherence) > 0:
             acc = len(rok_trials_correct) / len(trials_coherence)
@@ -188,23 +182,43 @@ def main():
     conditions_flat = None
     observations_flat = None
     observations_pred = None
-    fig = Figure()
-    # Add the first subplot
-    ax1 = fig.add_subplot(131, aspect='equal', xlim=(0, 1), ylim=(0, 1))
-    ax1.set_title('Experimentalist')
-    # Add the second subplot
-    ax2 = fig.add_subplot(132, aspect='equal', xlim=(0, 1), ylim=(0, 1))
-    ax2.set_title('Experiment Runner')
-    ax2.axis('off')
-    # Add the third subplot
-    ax3 = fig.add_subplot(133, aspect='equal', xlim=(0, 1), ylim=(0, 1))
-    ax3.set_title('Theorist')
 
-    fig.subplots_adjust(wspace=1)
+    # *** Plotting *** #
+    fig = Figure()
+
+    # blue guy subplot
+    blue_guy_ax = fig.add_subplot(231, aspect='equal')
+    blue_guy_ax.axis('off')
+    blue_guy_img = np.asarray(Image.open('BlueGuy.png'))
+    blue_guy_ax.imshow(blue_guy_img)
+
+    # green guy subplot
+    green_guy_ax = fig.add_subplot(233, aspect='equal')
+    green_guy_ax.axis('off')
+    green_guy_img = np.asarray(Image.open('GreenGuy.png'))
+    green_guy_ax.imshow(green_guy_img)
+
+    # status message subplot
+    status_ax = fig.add_subplot(232, aspect='equal')
+    status_ax.axis('off')
+
+    # theorist subplot
+    theorist_ax = fig.add_subplot(234, aspect='equal', xlim=(0, 1), ylim=(0, 1))
+    theorist_ax.set_title('Theorist')
+
+    # experiment_runner subplot
+    experiment_runner_ax = fig.add_subplot(235, aspect='equal', xlim=(0, 1), ylim=(0, 1))
+    experiment_runner_ax.axis('off')
+
+    # experimentalist subplot
+    experimentalist_ax = fig.add_subplot(236, aspect='equal', xlim=(0, 1), ylim=(0, 1))
+    experimentalist_ax.set_title('Experimentalist')
+
+    fig.subplots_adjust(wspace=1, hspace=.1)
     fig.set_size_inches(12, 5)
 
     window = tk.Tk()
-    window.title('My Matplotlib Plot')
+    window.title('AutoRA - Closed Loop Demo')
 
     # Create a canvas and add your figure to it, then pack it into the window
     canvas = FigureCanvasTkAgg(fig, master=window)
@@ -222,32 +236,28 @@ def main():
             # get the trial sequences:
             trial_sequences = get_trial_sequences(conditions[0])
             for i in range(len(conditions[0])):
-                time.sleep(random.random()*2)
+                time.sleep(random.random() * 2)
                 plot(
                     x_points=conditions_flat, y_points=observations_flat,
                     x_graph=conditions_flat, y_graph=observations_pred,
-                    vertical_lines=conditions[0][:i+1],
-                    ax=ax1, title='Experimentalist')
+                    vertical_lines=conditions[0][:i + 1],
+                    ax=experimentalist_ax, title='Experimentalist',
+                    status_ax=status_ax, status_msg='Experimentalist working')
                 canvas.draw()
             time.sleep(1)
 
             print('experiment runner working...')
-            plot(ax=ax2, text='Collecting Data', title='Experiment Runner', axis='off')
+            plot(ax=experiment_runner_ax, text='Collecting Data',
+                 status_ax=status_ax, status_msg='Running Online Experiment', axis='off')
 
             canvas.draw()
 
             # upload the trial sequences to firebase
             send_conditions('autora', trial_sequences, FIREBASE_CREDENTIALS)
 
-            nr_dots = 0
             observations = None
             while observations is None:
-                for i in range(4):
-                    nr_dots += 1
-                    nr_dots %= 4
-                    time.sleep(random.random()*2)
-                    plot(ax=ax2, text="."*nr_dots, title='Collecting Data', axis='off')
-                    canvas.draw()
+                time.sleep(10)
                 # Check if all the conditions are observed.
                 # Set a time out of 100s for participants that started the condition
                 #             but didn't finish (after this time spots are freed)
@@ -257,8 +267,9 @@ def main():
                     observations = [_observation[key] for key in sorted(_observation.keys())]
 
             print('theorist working...')
-            plot(ax=ax2, text='', title='Experiment Runner', axis='off')
-            plot(ax=ax3, text='Analysing data', title='Theorist', axis='off')
+            plot(ax=experiment_runner_ax, text='', axis='off')
+            plot(ax=theorist_ax, title='Theorist', text='Analysing Data', axis='off',
+                 status_ax=status_ax, status_msg='Theorist working')
             canvas.draw()
 
             for ob in observations:
@@ -288,7 +299,9 @@ def main():
                 x_points=conditions_flat, y_points=observations_flat,
                 x_graph=conditions_flat, y_graph=observations_pred,
                 vertical_lines=None,
-                ax=ax3, title='Theorist')
+                ax=theorist_ax, title='Theorist',
+                status_ax=status_ax, status_msg='',
+            )
 
             canvas.draw()
 
