@@ -56,6 +56,7 @@ variables = VariableCollection(
 uniform_random_rng = np.random.default_rng(seed=180)
 
 
+
 # *** HELPER FUNCTIONS *** #
 
 # format SweetPea generated trial sequence so it convenient to use in a jsPsych experiment
@@ -96,6 +97,11 @@ def plot(x_points=None, y_points=None, vertical_lines=None, x_graph=None, y_grap
         status_ax.set_aspect('equal')
 
 
+
+# *** GET THE CONDITIONS *** #
+
+# ** Sampling the coherences ** #
+
 # get n samples of an 3-tuple
 def run_random_sampler(n):
     return uniform_random_rng.uniform(low=0, high=1, size=(n, BLOCKS))
@@ -115,6 +121,8 @@ def get_coherences(X_ref=None):
     X_ = run_random_sampler(RANDOM_SAMPLES)
     return run_dissimilarity(X_, X_ref, 1)
 
+
+# ** Creating the trial sequencs ** #
 
 # given the coherences, get a list of three trial sequences in sweetPea (https://sites.google.com/view/sweetpea-ai) for each participant
 def get_trial_sequences(coherences):
@@ -151,18 +159,31 @@ def get_trial_sequences(coherences):
     return trial_sequences
 
 
+
+# *** PROCESS DATA *** #
+
+# process the raw trial data
 def get_accuracy_from_observations(observations, conditions):
     accuracies = []
+    # parse the string into an object
     trials = json.loads(observations)['trials']
+
+    # for each condition calculate the accuracy
     for coherence in conditions:
+        # filter the trials for the rok trials (not instruction, fixation, feedback ...
         rok_trials = [trial for trial in trials if trial['trial_type'] == 'rok']
+        # filter the trials for the ones with the correct coherence (ATTENTION: Here we give a margin since
+        # to account for precision loss due to conversions between different data types
         trials_coherence = [trial for trial in rok_trials if (
                 (trial['coherence_movement'] < coherence * 100 + .1) and (
                 trial['coherence_movement'] > coherence * 100 - .1))]
+        # filter the correct trials
         rok_trials_correct = [trial for trial in trials_coherence if trial['correct']]
+        # accuracy is the ratio of correct trials to all trials
         if len(trials_coherence) > 0:
             acc = len(rok_trials_correct) / len(trials_coherence)
         else:
+            # Errorhandling
             print(f'Warning: Something went wrong')
             print('coherence:', coherence)
             print('rok_trials:', rok_trials)
@@ -176,6 +197,7 @@ def get_accuracy_from_observations(observations, conditions):
 # Your plot function goes here...
 
 def main():
+    ## Set up for the experiment
     # All conditions
     conditions_all = []
     observations_all = []
@@ -226,6 +248,7 @@ def main():
     canvas.get_tk_widget().pack()
 
     def experiment():
+        # run the experiment (this is done in a different thread to allow for the visualisation to be synchronized
         nonlocal conditions_all, observations_all, conditions_flat, observations_flat, observations_pred
         for c in range(CYCLES):
             print(f'starting cycle {c}')
@@ -235,6 +258,8 @@ def main():
 
             # get the trial sequences:
             trial_sequences = get_trial_sequences(conditions[0])
+
+            # plot the experimentalist
             for i in range(len(conditions[0])):
                 time.sleep(random.random() * 2)
                 plot(
@@ -247,6 +272,7 @@ def main():
             time.sleep(1)
 
             print('experiment runner working...')
+            # plot the experiment runner
             plot(ax=experiment_runner_ax, text='Collecting Data',
                  status_ax=status_ax, status_msg='Running Online Experiment', axis='off')
 
@@ -256,22 +282,26 @@ def main():
             send_conditions('autora', trial_sequences, FIREBASE_CREDENTIALS)
 
             observations = None
+            # get all observations/run the online experiment
             while observations is None:
                 time.sleep(10)
                 # Check if all the conditions are observed.
                 # Set a time out of 100s for participants that started the condition
                 #             but didn't finish (after this time spots are freed)
                 check_firebase = check_firebase_status("autora", FIREBASE_CREDENTIALS, 100)
+                # if the observations are finished, get them as a list of strings
                 if check_firebase == "finished":
                     _observation = get_observations("autora", FIREBASE_CREDENTIALS)
                     observations = [_observation[key] for key in sorted(_observation.keys())]
 
+            # plot the theorist
             print('theorist working...')
             plot(ax=experiment_runner_ax, text='', axis='off')
             plot(ax=theorist_ax, title='Theorist', text='Analysing Data', axis='off',
                  status_ax=status_ax, status_msg='Theorist working')
             canvas.draw()
 
+            # process the observations to accuracies
             for ob in observations:
                 conditions_all.append(list(conditions[0]))
                 accuracies = get_accuracy_from_observations(ob, conditions[0])
@@ -280,21 +310,17 @@ def main():
             # flatten the conditions_all and the observations_all
             _conditions_flat = np.ravel(conditions_all).tolist()
             _observations_flat = np.ravel(observations_all).tolist()
-            # Reshape the conditions_all array to have a single column
 
-            # make elements arrays
+            # the theorist expects an array of arrays. Here we have n 1-dimensional arrays
             conditions_flat = np.array([np.array([x]) for x in _conditions_flat])
             observations_flat = np.array([np.array([x]) for x in _observations_flat])
 
-            # data analysis with BMS
-            estimator = BMSRegressor(epochs=500)
-            estimator.fit(conditions_flat, observations_flat)
-            observations_pred = estimator.predict(conditions_flat)
+            # data analysis with BMS theorist
+            theorist = BMSRegressor(epochs=500)
+            theorist.fit(conditions_flat, observations_flat)
+            observations_pred = theorist.predict(conditions_flat)
 
-            print(conditions_flat)
-            print(observations_flat)
-            print(observations_pred)
-
+            # plot the result in the theorist
             plot(
                 x_points=conditions_flat, y_points=observations_flat,
                 x_graph=conditions_flat, y_graph=observations_pred,
