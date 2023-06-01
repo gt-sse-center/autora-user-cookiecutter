@@ -22,10 +22,10 @@ const main = async (id, condition) => {
     console.log(condition)
 
     // constants
-    const FIXATION_DURATION = 400
-    const SOA_DURATION = 200
-    const STIMULUS_DURATION = 1500
-    const FEEDBACK_DURATION = 400
+    const FIXATION_DURATION = 300
+    const SOA_DURATION = 100
+    const STIMULUS_DURATION = 1000
+    const FEEDBACK_DURATION = 300
 
     // key to response mapping 0 degree -> f, 180 degree -> j
     const responseToKeyMapping = {
@@ -118,7 +118,7 @@ const main = async (id, condition) => {
             trials.push(
                 {
                     type: htmlKeyboardResponse,
-                    stimulus: 'You can have a little break.<br>The next block will start when you press >> Space << to continue',
+                    stimulus: 'You can have a small break.<br>The next block will start when you press >> Space << to continue',
                     choices: [' ']
                 }
             )
