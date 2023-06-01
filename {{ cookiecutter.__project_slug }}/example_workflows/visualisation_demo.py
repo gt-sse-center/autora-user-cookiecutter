@@ -37,8 +37,8 @@ from autora.variable import Variable, VariableCollection
 # Samples before the dissimilarity sampler
 RANDOM_SAMPLES = 50
 # blocks per participants
-BLOCKS = 1
-PARTICIPANTS_PER_CYCLE = 1
+BLOCKS = 3
+PARTICIPANTS_PER_CYCLE = 4
 CYCLES = 5
 
 # Credentials for firebase
