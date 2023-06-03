@@ -106,7 +106,7 @@ def check_if_firebase_tools_installed():
 
 
 def main():
-    source_branch = 'restructure/autora'
+    source_branch = 'main'
     project_directory = os.path.join(os.path.realpath(os.path.curdir), 'researcher_hub')
     requirements_file = os.path.join(project_directory, 'requirements.txt')
     if create_autora_hub_requirements(source_branch, requirements_file):
