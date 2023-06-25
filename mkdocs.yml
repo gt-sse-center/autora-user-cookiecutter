@@ -1,8 +1,10 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 INHERIT: mkdocs/base.yml  # use the shared AutoRA configuration by default
 
-site_name: AutoRA Model-Disagreement-Sampler
-repo_url: 'https://github.com/AutoResearch/autora-experimentalist-sampler-model-disagreement-sampler'
+site_name: AutoRA User Cookiecutter
+repo_url: 'https://github.com/AutoResearch/autora-user-cookiecutter'
 
 nav:
-- Initialize Firebase Project: 'initialize-firebase-project.md'
+- Home: 'index.md'
+-
+  - Basic Usage: 'Basic Usage.ipynb'
