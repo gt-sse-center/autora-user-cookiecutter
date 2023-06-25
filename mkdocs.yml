@@ -6,5 +6,3 @@ repo_url: 'https://github.com/AutoResearch/autora-user-cookiecutter'
 
 nav:
 - Home: 'index.md'
--
-  - Basic Usage: 'Basic Usage.ipynb'
