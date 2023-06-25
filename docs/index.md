@@ -8,7 +8,7 @@ To establish a complete online closed-loop system for AutoRA, there are two key 
 
 2. Website To Conduct Experiment:
    - The website serves as a platform for conducting experiments and needs to be compatible with the AutoRA workflow.
-   - In this setup, we use a `node` application hosted on Firebase to serve the website.
+   - In this setup, we use a `Node` application hosted on Firebase to serve the website.
 
 To simplify the setup process, we provide a `cookiecutter` template that generates a project folder containing the following two directories:
 
@@ -61,7 +61,7 @@ In the left-hand menu of your project console, click on Build and select Firesto
   - If you don't see the location, select one now (click on the `pencil-symbol` and then on `Done` in the pop-up window).
 
 ## Set Up The Project On Your System
-To set up an online AutoRA closed-loop you need both `Python` and `node`.
+To set up an online AutoRA closed-loop you need both `Python` and `Node`.
 
 You should also consider using an IDE. We recommend: 
 
@@ -101,7 +101,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 !!! success
     The Firebase website we set up requires `Node` to be installed on your system.
 
-You can find information about how to install on the [official node website](https://nodejs.org/en)
+You can find information about how to install on the [official Node website](https://nodejs.org/en)
 
 ### Create A Virtual Environment
 
