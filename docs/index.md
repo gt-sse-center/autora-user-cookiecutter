@@ -154,10 +154,12 @@ Run `cookiecutter` and select the basic option.
 cookiecutter https://github.com/AutoResearch/autora-user-cookiecutter
 ```
 
-## Researcher Hub: AutoRA Workflow
-Running cookiecutter will result in two directories. The `researcher_hub` contains a basic template for an AutoRA workflow. 
+This command will result in two directories, `researcher_hub` and `testing_zone`, which are described next.
 
-To install the necessary dependencies, move to directory to the `researcher_hub` and install the requirements.
+## Researcher Hub: AutoRA Workflow
+ The `researcher_hub` contains a basic template for an AutoRA workflow. 
+
+To install the necessary dependencies, move to directory to the  and install the requirements.
 
 Move to the `researcher_hub` directory:
 ```shell
