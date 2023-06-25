@@ -8,8 +8,9 @@ import shutil
 
 def clean_up():
     to_remove = os.path.join(os.getcwd(), 'temp')
-    subprocess.call(['deactivate'], shell=True)
-    shutil.rmtree(to_remove)
+    if os.path.exists(to_remove):
+        subprocess.call(['deactivate'], shell=True)
+        shutil.rmtree(to_remove)
 
 
 def basic_or_advanced():
@@ -58,6 +59,11 @@ def create_autora_hub_requirements(source_branch, requirements_file):
 
 
 def setup_basic(requirements_file):
+    if not check_if_firebase_tools_installed():
+        # Install firebase-tools
+        subprocess.call(['npm', 'install', '-g', 'firebase-tools'], shell=True)
+
+    subprocess.call(['npx', 'create-react-app', 'testing_zone', '--template', 'autora-firebase'])
     with open(requirements_file, 'a') as f:
         f.write('autora')
     shutil.move(f'example_mains/basic.js', 'testing_zone/src/design/main.js')
