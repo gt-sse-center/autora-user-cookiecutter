@@ -27,12 +27,10 @@ The following steps outline how to set up the project:
 To serve a website via Firebase and use the Firestore Database, it is necessary to set up a Firebase project. Follow the steps below to get started:
 
 ### Google Account
-You'll need a Google account to use Firebase. You can create one here: 
-https://www.google.com/account/about/
+You'll need a [Google account](https://www.google.com/account/about/) to use Firebase.
 
 ### Firebase Project
-While logged in into your Google account head over to:
-https://firebase.google.com/
+While logged in into your Google account head over to the [Firebase website](https://firebase.google.com/).
 
 - Click on `Get started`.
 - Click on the plus sign with `add project`.
