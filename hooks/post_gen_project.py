@@ -65,7 +65,7 @@ def setup_basic(requirements_file):
 
     subprocess.call(['npx', 'create-react-app', 'testing_zone', '--template', 'autora-firebase'])
     with open(requirements_file, 'a') as f:
-        f.write('autora')
+        f.write('\nautora')
     shutil.move(f'example_mains/basic.js', 'testing_zone/src/design/main.js')
     shutil.move(f'example_workflows/basic.py', 'researcher_hub/autora_workflow.py')
     shutil.move(f'readmes/README_AUTORA.md', 'researcher_hub/README.md')
