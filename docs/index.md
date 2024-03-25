@@ -2,24 +2,24 @@
 
 To establish a complete online closed-loop system for AutoRA, there are two key components that need to be configured:
 
-1. AutoRA Workflow:
-   - This workflow can be executed locally, on a server, or using `Cylc`. It must have the ability to communicate with a website, allowing for writing of new conditions and reading of observation data.
-   - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA experimentalists or AutoRA theorists. It relies on an AutoRA Experimentation Manager to facilitate communication.
+1. AutoRA Workflow
+    - This workflow can be executed locally, on a server, or using `Cylc`. It must have the ability to communicate with a website, allowing for writing of new conditions and reading of observation data.
+    - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA experimentalists or AutoRA theorists. It relies on an AutoRA Experimentation Manager to facilitate communication.
 
 2. Website To Conduct Experiment:
-   - The website serves as a platform for conducting experiments and needs to be compatible with the AutoRA workflow.
-   - In this setup, we use a `Node` application hosted on Firebase to serve the website.
+    - The website serves as a platform for conducting experiments and needs to be compatible with the AutoRA workflow.
+      - In this setup, we use a `Node` application hosted on Firebase to serve the website.
 
 To simplify the setup process, we provide a `cookiecutter` template that generates a project folder containing the following two directories:
 
 1. Researcher Hub:
-   - This directory includes a basic example of an AutoRA workflow.
-   - You can modify this example by adding or removing AutoRA functions to create a customized AutoRA workflow that suits your requirements.
-   - The workflow incorporates an AutoRA Experimentation Manager, enabling communication with the website.
-   - The workflow also incorporates an AutoRA Recruitment Manager, enabling recruitment of participants via Prolific.
+    - This directory includes a basic example of an AutoRA workflow.
+    - You can modify this example by adding or removing AutoRA functions to create a customized AutoRA workflow that suits your requirements.
+    - The workflow incorporates an AutoRA Experimentation Manager, enabling communication with the website.
+    - The workflow also incorporates an AutoRA Recruitment Manager, enabling recruitment of participants via Prolific.
 
 2. Testing Zone:
-   - This directory provides a basic example of a website served with Firebase, ensuring compatibility with the AutoRA workflow.
+    - This directory provides a basic example of a website served with Firebase, ensuring compatibility with the AutoRA workflow.
 
 The following steps outline how to set up the project:
 
@@ -41,7 +41,7 @@ While logged in into your Google account head over to the [Firebase website](htt
 ### Adding A Webapp To Your Project
 In your project console (within the Firebase project), we now want to add an app to our project
 
-- Click on `</>`.
+- Click on ```<\>```.
 - Name the app (can be the same as your project) and check `Also set up Firebase Hosting`.
 - Click on `Register app`.
 - Click on `Next`.
@@ -176,7 +176,6 @@ You can find documentation for all parts of the AutoRA workflow in the [User Gui
 The `testing_zone` contains a basic template for a website that is compatible with the [AutoRA Experimentation Manager for Firebase](https://autoresearch.github.io/autora/user-guide/experiment-runners/experimentation-managers/firebase/) and the [AutoRA Recruitment Manager for Prolific](https://autoresearch.github.io/autora/user-guide/experiment-runners/recruitment-managers/prolific/).
 
 You can find documentation on how to connect the website to an AutoRA workflow, as well as how to build and deploy it in the documentation for [Firebase Integration](https://autoresearch.github.io/autora/online-experiments/firebase/)
-
 
 
 
