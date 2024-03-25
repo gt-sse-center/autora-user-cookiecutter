@@ -1,22 +1,19 @@
-# User Cookiecutter: Setting Up An AutoRA Workflow And Online Experiment
+# Setting Up An AutoRA Workflow And Online Experiment
 
-To establish a complete online closed-loop system for AutoRA, there are two key components that need to be configured:
+To establish am online closed-loop for AutoRA, there are two key components that need to be configured:
 
 1. AutoRA Workflow
     - This workflow can be executed locally, on a server, or using `Cylc`. It must have the ability to communicate with a website, allowing for writing of new conditions and reading of observation data.
-    - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA experimentalists or AutoRA theorists. It relies on an AutoRA Experimentation Manager to facilitate communication.
+    - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA *experimentalists* or AutoRA *theorists*. It relies on an AutoRA Prolific Firebase *runner* to collect data from a online experiment hosted via firebase and recruit participants via prolific.
 
 2. Website To Conduct Experiment:
     - The website serves as a platform for conducting experiments and needs to be compatible with the AutoRA workflow.
-      - In this setup, we use a `Node` application hosted on Firebase to serve the website.
+    - In this setup, we use a `Firbase` to hosted on website.
 
 To simplify the setup process, we provide a `cookiecutter` template that generates a project folder containing the following two directories:
 
 1. Researcher Hub:
     - This directory includes a basic example of an AutoRA workflow.
-    - You can modify this example by adding or removing AutoRA functions to create a customized AutoRA workflow that suits your requirements.
-    - The workflow incorporates an AutoRA Experimentation Manager, enabling communication with the website.
-    - The workflow also incorporates an AutoRA Recruitment Manager, enabling recruitment of participants via Prolific.
 
 2. Testing Zone:
     - This directory provides a basic example of a website served with Firebase, ensuring compatibility with the AutoRA workflow.
@@ -30,35 +27,39 @@ To serve a website via Firebase and use the Firestore Database, it is necessary 
 You'll need a [Google account](https://www.google.com/account/about/) to use Firebase.
 
 ### Firebase Project
-While logged in into your Google account head over to the [Firebase website](https://firebase.google.com/).
+While logged in into your Google account head over to the [Firebase website](https://firebase.google.com/). Then create a new project:
 
 - Click on `Get started`.
 - Click on the plus sign with `add project`.
 - Name your project and click on `continue`.
 - For now, we don't use Google Analytics (you can leave it enabled if you want to use it in the future).
-- Click 'Create project'.
+- Click `Create project`.
 
 ### Adding A Webapp To Your Project
-In your project console (within the Firebase project), we now want to add an app to our project
+Now, we add a webapp to the project. Navigate to the project and follow these steps:
 
 - Click on ```<\>```.
-- Name the app (can be the same as your project) and check `Also set up Firebase Hosting`.
-- Click on `Register app`.
-- Click on `Next`.
-- Click on `Next`.
-- Click on `Continue to console`.
+- Name the app (can be the same as your project) and check the box `Also set up Firebase Hosting`. Click on `Register app`.
+- We will use `npm`. We will use the configuration details later, but for now, click on `Next`.
+- We will install firebase tools later, for now, click on `Next`.
+- We will login and deploy our website later, for now, click on `Continue to console`.
 
 ### Adding Firestore To Your Project
-In the left-hand menu of your project console, click on Build and select Firestore Database
+For the online closed loop system, we will use a Firestore Database to communicate between the AutoRA workflow and the website conducting the experiment. We will upload experiment conditions to the database and store experiment data in the database. To build a Firestore Database, follow theses steps:
 
+- In the left-hand menu of your project console, click on `Build` and select `Firestore Database`
 - Click on `Create database`.
 - Leave `Start in production mode` selected and click on `Next`.
 - Select a Firestore location and click on `Enable`.
-- To check if everything is set up correctly, click on the gear symbol next to the Project overview in the menu and select `Project settings`.
+- To check if the database is set up correctly, click on the gear symbol next to the `Project overview` in the left-hand menu and select `Project settings`.
 - Under `Default GCP resource location` you should see the Firestore location that you selected.
   - If you don't see the location, select one now (click on the `pencil-symbol` and then on `Done` in the pop-up window).
 
 ## Set Up The Project On Your System
+After setting up the project on Firebase, we will setup the project on our system. Here, we will use `cookiecutter` to setup an example 
+
+### Prerequisite
+
 To set up an online AutoRA closed-loop you need both `Python` and `Node`.
 
 You should also consider using an IDE. We recommend: 
@@ -67,7 +68,7 @@ You should also consider using an IDE. We recommend:
   for changing the structure of `Python` code, running tests, etc. 
 - Visual Studio Code. This is a powerful general text editor with plugins to support `Python` development.
 
-### Install `Python`
+#### Install `Python`
 
 !!! success
     All contributions to the AutoRA core packages work under **Python 3.8**, so we recommend using that version 
@@ -94,14 +95,14 @@ Python 3.11.3 (main, Apr  7 2023, 20:13:31) [Clang 14.0.0 (clang-1400.0.29.202)]
 Type "help", "copyright", "credits" or "license" for more information.
 ```
 
-### Installing `Node`
+#### Installing `Node`
 
 !!! success
     The Firebase website we set up requires `Node` to be installed on your system.
 
 You can find information about how to install on the [official Node website](https://nodejs.org/en)
 
-### Create A Virtual Environment
+#### Create A Virtual Environment
 
 !!! success
     We recommend setting up your virtual environment using a manager like `venv`, which creates isolated `Python`  environments. Other environment managers, such as 
@@ -129,7 +130,7 @@ Activate it by running
 source ".venv/bin/activate"
 ```
 
-### Install Dependencies
+#### Install Dependencies
 
 Upgrade pip:
 ```shell
@@ -140,6 +141,9 @@ Install the current project development dependencies:
 ```shell
 pip install cookiecutter
 ```
+
+#### Prolific
+
 
 ### Run Cookiecutter
 
