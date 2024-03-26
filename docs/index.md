@@ -1,10 +1,10 @@
-# Setting Up An AutoRA Workflow And Online Experiment
+# Closed Loop Online Experimet
 
 To establish am online closed-loop for AutoRA, there are two key components that need to be configured:
 
 1. AutoRA Workflow
     - This workflow can be executed locally, on a server, or using `Cylc`. It must have the ability to communicate with a website, allowing for writing of new conditions and reading of observation data.
-    - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA *experimentalists* or AutoRA *theorists*. It relies on an AutoRA Prolific Firebase *runner* to collect data from a online experiment hosted via firebase and recruit participants via prolific.
+    - The AutoRA workflow can be customized by adding or removing AutoRA functions, such as AutoRA *experimentalists* or AutoRA *theorists*. It relies on an AutoRA Prolific Firebase *erunner* to collect data from a online experiment hosted via firebase and recruit participants via prolific.
 
 2. Website To Conduct Experiment:
     - The website serves as a platform for conducting experiments and needs to be compatible with the AutoRA workflow.
@@ -21,6 +21,7 @@ To simplify the setup process, we provide a `cookiecutter` template that generat
 The following steps outline how to set up the project:
 
 ## Set Up The Project On The Firebase Website
+
 To serve a website via Firebase and use the Firestore Database, it is necessary to set up a Firebase project. Follow the steps below to get started:
 
 ### Google Account
@@ -56,7 +57,8 @@ For the online closed loop system, we will use a Firestore Database to communica
   - If you don't see the location, select one now (click on the `pencil-symbol` and then on `Done` in the pop-up window).
 
 ## Set Up The Project On Your System
-After setting up the project on Firebase, we will setup the project on our system. Here, we will use `cookiecutter` to setup an example 
+
+After setting up the project on Firebase, we will setup the project on our system. Here, we will use `cookiecutter` to setup an example.
 
 ### Prerequisite
 
@@ -68,39 +70,10 @@ You should also consider using an IDE. We recommend:
   for changing the structure of `Python` code, running tests, etc. 
 - Visual Studio Code. This is a powerful general text editor with plugins to support `Python` development.
 
-#### Install `Python`
+#### Install `Python` and `Node`
 
-!!! success
-    All contributions to the AutoRA core packages work under **Python 3.8**, so we recommend using that version 
-    for creating an AutoRA workflow.
-
-You can install `Python`:
-
-- Using the instructions at [python.org](https://www.python.org), or
-- Using a package manager, e.g.
-  [homebrew](https://docs.brew.sh/Homebrew-and-Python), 
-  [pyenv](https://github.com/pyenv/pyenv),
-  [asdf](https://github.com/asdf-community/asdf-python), 
-  [rtx](https://github.com/jdxcode/rtx/blob/main/docs/python.md),
-  [winget](https://winstall.app/apps/Python.Python.3.8).
-
-If successful, you should be able to run `Python` in your terminal like this:
-```shell
-python
-```
-
-...and see some output like this:
-```
-Python 3.11.3 (main, Apr  7 2023, 20:13:31) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-```
-
-#### Installing `Node`
-
-!!! success
-    The Firebase website we set up requires `Node` to be installed on your system.
-
-You can find information about how to install on the [official Node website](https://nodejs.org/en)
+- You can install python using the instructions at [python.org](https://www.python.org)
+- You can find information about how to install on the [official Node website](https://nodejs.org/en)
 
 #### Create A Virtual Environment
 
@@ -111,43 +84,20 @@ You can find information about how to install on the [official Node website](htt
     [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/), 
     [hatch](https://hatch.pypa.io/latest/), 
     [poetry](https://python-poetry.org), 
-    are available and will likely work, but will have different syntax to the syntax shown here.
+    
+#### Prolific
 
-In the `<project directory>`, run the following command to create a new virtual environment in the `.venv` directory
+...
 
-```shell
-python3 -m "venv" ".venv" 
-```
+### Run Cookiecutter
 
-!!! hint
-    If you have multiple `Python` versions installed on your system, it may be necessary to specify the version when creating a virtual environment. For example, run the following command to specify version 3.8 for the virtual environment. 
-    ```shell
-    python3.8 -m "venv" ".venv" 
-    ```
+After we have installed `Python` and `Node` and set up a virtual environment, we use the `cookiecutter`. First install it:
 
-Activate it by running
-```shell
-source ".venv/bin/activate"
-```
-
-#### Install Dependencies
-
-Upgrade pip:
-```shell
-pip install --upgrade pip
-```
-
-Install the current project development dependencies:
 ```shell
 pip install cookiecutter
 ```
 
-#### Prolific
-
-
-### Run Cookiecutter
-
-Run `cookiecutter` and select the basic option. 
+Then, run `cookiecutter` and select the `basic` option. 
 
 !!! hint
     If you select advanced, there are more features, but the instructions here focus on the basic template.
