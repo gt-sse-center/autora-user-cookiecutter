@@ -1,1 +1,2 @@
 autora-core
+autora-synthetic
